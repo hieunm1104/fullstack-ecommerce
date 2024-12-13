@@ -3,8 +3,11 @@ import Logo from "../../assets/image/logo.png";
 import "./style.scss";
 import { Link } from "react-router-dom";
 import CountryDropdown from "../CountryDropdown";
-import { IoSearch } from "react-icons/io5";
+import { FiUser } from "react-icons/fi";
 import { Button } from "@mui/material";
+import { IoBagOutline } from "react-icons/io5";
+import SearchBox from "./SearchBox";
+import Navigation from "./Navigation";
 
 function Header(props) {
   return (
@@ -32,16 +35,28 @@ function Header(props) {
               </div>
               <div className="col-sm-10 d-flex align-items-center part2">
                 <CountryDropdown />
-                <div className="headerSearch ml-3 mr-3">
-                  <input type="text" />
-                  <Button>
-                    <IoSearch />
+                <SearchBox />
+                <div className="d-flex align-items-center part3 ml-auto">
+                  <Button className="btn-user">
+                    <FiUser />
                   </Button>
+                  <div className="ml-auto cartTab d-flex align-items-center">
+                    <span className="price">$3.29</span>
+                    <div className="position-relative">
+                      <Button className="btn-cart">
+                        <IoBagOutline />
+                      </Button>
+                      <span className="count d-flex align-items-center justify-content-center">
+                        1
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <Navigation />
       </div>
     </>
   );

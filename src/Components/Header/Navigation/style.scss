@@ -1,0 +1,28 @@
+nav{
+    .allCategoriTab{
+     background-color: #2bbef9;
+     padding: 12px 15px !important;
+     border-radius: 30px;
+     > *{
+         color: #fff;
+     }
+     &:hover{
+         background-color: #2bbef9;
+     }
+     .text{
+         font-weight: 600;
+     }
+    }
+     svg{
+        font-size: 20px !important;
+
+     }
+     .icon1{
+        margin-right: 10px;
+        font-size: 20px !important;
+     }
+     .icon2{
+        margin-left: 10px;
+        font-size: 15px !important;
+     }
+ }
