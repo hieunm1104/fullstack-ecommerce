@@ -2,15 +2,15 @@ import React from 'react';
 import { IoIosSearch } from "react-icons/io";
 import { Button } from "@mui/material";
 import "./style.scss";
-function SearchBox(props) {
+function SearchBox({placeholder, onChange}) {
     return (
         <>
-             <div className="headerSearch ml-3 mr-3">
-                  <input type="text" placeholder="Search for products...." />
+             <div className="headerSearch">
+                  <input type="text" placeholder={placeholder} onChange={onChange}/>
                   <Button className="btn-iosearch">
                     <IoIosSearch />
                   </Button>
-                </div>
+              </div>
         </>
     );
 }

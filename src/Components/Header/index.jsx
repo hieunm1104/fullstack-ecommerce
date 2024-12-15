@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "../../assets/image/logo.png";
 import "./style.scss";
 import { Link } from "react-router-dom";
@@ -8,8 +8,11 @@ import { Button } from "@mui/material";
 import { IoBagOutline } from "react-icons/io5";
 import SearchBox from "./SearchBox";
 import Navigation from "./Navigation";
+import { MyContext } from "../../App";
 
 function Header(props) {
+
+  const context = useContext(MyContext);
   return (
     <>
       <div className="headerWrapper">
@@ -34,8 +37,12 @@ function Header(props) {
                 </Link>
               </div>
               <div className="col-sm-10 d-flex align-items-center part2">
-                <CountryDropdown />
-                <SearchBox />
+                {
+                  context.values.countryList.length !==0 && (
+                    <CountryDropdown />
+                  )
+                }
+                <SearchBox placeholder={"Search for products, brands and more"} />
                 <div className="d-flex align-items-center part3 ml-auto">
                   <Button className="btn-user">
                     <FiUser />

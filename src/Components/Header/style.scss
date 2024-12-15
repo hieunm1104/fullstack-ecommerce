@@ -20,7 +20,10 @@
                 width: 100%;
             }
         }
-        
+        .part2{
+            display: flex;
+            gap: 20px;
+        }
         .part3{
             .btn-user{
                 align-items: center;
