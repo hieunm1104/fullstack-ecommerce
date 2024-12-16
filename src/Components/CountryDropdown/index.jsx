@@ -10,42 +10,60 @@ import { MyContext } from "../../App";
 function CountryDropdown() {
   const [openModal, setOpenModal] = useState(false);
   const context = useContext(MyContext);
-  const [selectedTab, setSelectedTab] = useState(null);
-
+  const [selectedCountry, setSelectedCountry] = useState(null);
   const [fakeCountryList, setFakeCountryList] = useState([]);
+  const [searchValue, setSearchValue] = useState(""); // Lưu giá trị input tạm thời (trực tiếp)
+  const [debouncedValue, setDebouncedValue] = useState(""); // Giá trị thực sau debounce
 
+  // Load dữ liệu gốc vào fakeCountryList
   useEffect(() => {
     if (context?.values?.countryList) {
       setFakeCountryList(context.values.countryList);
-    } else {
-      console.error("countryList is not available in context");
     }
   }, [context.values.countryList]);
 
-  const selectedCountry = (index) => {
-    setSelectedTab(index);
-    setOpenModal(false);
-  };
-  const filterCountry = (e) => {
-    let value = e.target.value.toLowerCase();
-    if (value.length > 0) {
+  // Reset dữ liệu khi mở modal
+  useEffect(() => {
+    if (openModal && context?.values?.countryList) {
+      setFakeCountryList(context.values.countryList);
+    }
+  }, [openModal]);
+
+  // Xử lý debounce cho searchValue
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(searchValue); // Cập nhật giá trị thực sau 1s
+    }, 300);
+
+    return () => {
+      clearTimeout(handler); // Xóa timeout trước đó nếu người dùng tiếp tục nhập
+    };
+  }, [searchValue]);
+
+  // Lọc danh sách dựa trên giá trị debounce
+  useEffect(() => {
+    if (debouncedValue.length > 0) {
       const listAfterFilter = context.values.countryList.filter((item) =>
-        item.country.toLowerCase().includes(value)
+        item.country.toLowerCase().includes(debouncedValue.toLowerCase())
       );
       setFakeCountryList(listAfterFilter);
     } else {
       setFakeCountryList(context.values.countryList);
     }
+  }, [debouncedValue, context.values.countryList]);
+
+  const handleCountrySelect = (country) => {
+    setSelectedCountry(country); // Lưu thông tin quốc gia đã chọn
+    setOpenModal(false);         // Đóng modal
   };
+
   return (
     <div>
       <Button className="countryDrop" onClick={() => setOpenModal(true)}>
         <div className="info d-flex flex-column">
           <span className="lable">Your location</span>
           <span className="name">
-            {selectedTab !== null && fakeCountryList[selectedTab]
-              ? fakeCountryList[selectedTab].country
-              : "Select your location"}
+            {selectedCountry ? selectedCountry.country : "Select your location"}
           </span>
         </div>
         <span className="ml-auto">
@@ -54,31 +72,29 @@ function CountryDropdown() {
       </Button>
       <Dialog open={openModal} className="locationModal">
         <h4>Choose your Delivery Location</h4>
-        <p>Enter your address and we will specify the offer for your area. </p>
+        <p>Enter your address and we will specify the offer for your area.</p>
         <Button className="closeBtn" onClick={() => setOpenModal(false)}>
           <IoMdClose />
         </Button>
         <div className="searchBoxDialog">
           <SearchBox
             placeholder={"Search your area..."}
-            onChange={filterCountry}
+            onChange={(e) => setSearchValue(e.target.value)} // Lưu giá trị tạm thời vào searchValue
           />
         </div>
         <div className="locationList">
           <ul>
             {fakeCountryList?.length !== 0 &&
-              fakeCountryList?.map((item, index) => {
-                return (
-                  <li key={index}>
-                    <Button
-                      onClick={() => selectedCountry(index)}
-                      className={`${selectedTab === index ? "active" : ""}`}
-                    >
-                      {item.country}
-                    </Button>
-                  </li>
-                );
-              })}
+              fakeCountryList?.map((item, index) => (
+                <li key={index}>
+                  <Button
+                    onClick={() => handleCountrySelect(item)}
+                    className={`${selectedCountry?.country === item.country ? "active" : ""}`}
+                  >
+                    {item.country}
+                  </Button>
+                </li>
+              ))}
           </ul>
         </div>
       </Dialog>
