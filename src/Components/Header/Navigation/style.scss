@@ -11,6 +11,7 @@ nav {
         }
         .text {
             font-weight: 600;
+            white-space: nowrap;
         }
     }
     svg {
@@ -24,40 +25,179 @@ nav {
         margin-left: 10px;
         font-size: 15px !important;
     }
+    .navPart1 {
+        max-width: 20%;
+        flex: 0 0 20%;
+
+        .categoriWrapper {
+            position: relative;
+            .sidebarNav {
+                width: 100%;
+                height: 400px;
+                background-color: #fff;
+                position: absolute;
+                top: 119%;
+                left: 0;
+                z-index: 1000;
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                padding: 15px 0px;
+                opacity: 0;
+                transition: all 0.2s ease-in-out;
+                visibility: hidden;
+                &.open {
+                    opacity: 1;
+                    visibility: visible;
+                }
+                ul {
+                    li {
+                        position: static;
+                        width: 100%;
+                        list-style: none;
+                        padding: 0px 15px;
+                        a{
+                            text-decoration: none;
+                        }
+                        button {
+                            color: #000;
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            text-transform: capitalize;
+                            &:hover {
+                                background-color: #f1f1f1;
+                            }
+                            svg{
+                                font-size: 12px;
+                                opacity: 0.5;
+                            }
+                        }
+                        .Men-sub-menu {
+                            top: 0;
+                            left: 100%;
+                        }
+                        .Kids-sub-menu {
+                            top: 15%;
+                            left: 100%;
+                        }
+                        .Beauty-sub-menu {
+                            top: 25%;
+                            left: 100%;
+                        }
+
+                        .Men-sub-menu,
+                        .Kids-sub-menu,
+                        .Beauty-sub-menu {
+                            position: absolute;
+                            z-index: 100;
+
+                            width: 250px;
+                            height: auto;
+                            background-color: #fff;
+                            padding: 15px 0px;
+                            border: 1px solid rgba(0, 0, 0, 0.1);
+                            transition: all 0.2s ease-in-out;
+                            display: none;
+                            li {
+                                padding: 0px 15px;
+                                a {
+                                    text-decoration: none;
+                                }
+                                button {
+                                    color: #000;
+                                    width: 100%;
+                                    justify-content: flex-start;
+                                    text-transform: capitalize;
+                                    &:hover {
+                                        background-color: #f1f1f1;
+                                    }
+                                }
+                            }
+                            &.visible {
+                                display: block;
+                            }
+                            .open-men-sub-menu {
+                                display: block;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     .navPart2 {
+        max-width: 80%;
+        flex: 0 0 80%;
         ul {
             margin-bottom: 0px;
             display: flex;
             li {
                 font-size: 16px;
                 font-weight: 600;
-                display: flex;
-                align-items: center;
-                a {
+                display: inline-block;
+                position: relative;
+                padding: 10px;
+                width: 100px;
+                height: 50px;
+                a,
+                button {
                     text-decoration: none;
                     color: rgba(0, 0, 0, 0.7);
                     text-transform: uppercase;
                     display: flex;
                     align-items: center;
-                    padding: 10px 20px;
                     transition: all 0.2s ease-in-out;
-                    border-radius: 25px;
                     white-space: nowrap;
-                }
-                .btn {
-                    background-color: transparent;
-                    color: rgba(0, 0, 0, 0.7);
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    font-weight: 600;
-                    cursor: pointer;
                 }
                 &:hover {
                     background-color: #f0faff;
                     color: #2bbef9;
+                    .submenu {
+                        opacity: 1;
+                        visibility: visible;
+                    }
                 }
-
+                ::after {
+                    content: "";
+                    position: absolute;
+                    top: 100%; /* Bắt đầu ngay dưới menu */
+                    left: 0;
+                    width: 100%;
+                    height: 10px; /* Khoảng trống mở rộng vùng hover */
+                    background: transparent; /* Không hiển thị nhưng vẫn giữ hover */
+                }
+                .submenu {
+                    position: absolute;
+                    top: calc(100% + 10px);
+                    left: 0;
+                    min-width: 200px;
+                    z-index: 100;
+                    background-color: #fff;
+                    width: 100%;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: all 0.2s ease-in-out;
+                    a {
+                        display: block;
+                        width: 100%;
+                        button {
+                            width: 100%;
+                            justify-content: flex-start;
+                            color: rgba(0, 0, 0, 0.7);
+                            text-transform: capitalize;
+                            font-weight: 600;
+                            padding: 10px;
+                        }
+                    }
+                }
             }
         }
     }
+}
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: gray;
+    margin: 10px 0px;
 }

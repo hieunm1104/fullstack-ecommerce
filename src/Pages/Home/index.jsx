@@ -1,10 +1,14 @@
 import React from 'react';
+import HomeBanner from '../../Components/HomeBanner';
 
 function Home(props) {
+
+
+
     return (
-        <div>
-            this is home
-        </div>
+        <>
+        <HomeBanner />
+        </>
     );
 }
 

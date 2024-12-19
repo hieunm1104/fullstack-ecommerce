@@ -1,0 +1,33 @@
+/* Đảm bảo các mũi tên có nền trong suốt và có viền bo tròn */
+.slick-prev, .slick-next {
+  border-radius: 50%; /* Bo tròn */
+  color: #000; /* Màu của mũi tên */
+  padding: 10px; /* Khoảng cách từ cạnh */
+  z-index: 1; /* Đảm bảo mũi tên nằm trên các phần tử khác */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển màu */
+}
+
+.slick-prev {
+  left: 10px; /* Khoảng cách từ bên trái */
+}
+
+.slick-next {
+  right: 10px; /* Khoảng cách từ bên phải */
+}
+
+/* Tạo hiệu ứng hover */
+.slick-prev:hover, .slick-next:hover {
+  color: #fff; /* Màu của mũi tên khi hover */
+}
+
+/* Tạo hiệu ứng mượt khi hover */
+.slick-prev:before, .slick-next:before {
+  font-size: 40px; /* Kích thước mũi tên */
+  font-weight: bold;
+}
